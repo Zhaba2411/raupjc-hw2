@@ -8,9 +8,9 @@ namespace Task67
 {
     public class Class1
     {
-        public async Task<long> FactorialDigitSumAsync(int n)
+        public static async Task<int> FactorialDigitSumAsync(int n)
         {
-            long temp = 1, sum = 0;
+            int temp = 1, sum = 0;
 
             while (n > 1)
             {
@@ -25,6 +25,24 @@ namespace Task67
             }
 
             return sum;
-        } 
+        }
+
+        private static async Task LetsSayUserClickedAButtonOnGuiMethodAsync()
+        {
+            var result = await GetTheMagicNumberAsync();
+            Console.WriteLine(result);
+        }
+        private static async Task<int> GetTheMagicNumberAsync()
+        {
+            return await IKnowIGuyWhoKnowsAGuyAsync();
+        }
+        private static async Task<int> IKnowIGuyWhoKnowsAGuyAsync()
+        {
+            return await IKnowWhoKnowsThisAsync(10) + await IKnowWhoKnowsThisAsync(5);
+        }
+        private static async Task<int> IKnowWhoKnowsThisAsync(int n)
+        {
+            return FactorialDigitSumAsync(n).Result;
+        }
     }
 }
