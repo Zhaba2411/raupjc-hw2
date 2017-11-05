@@ -119,7 +119,7 @@ namespace Task2.Tests
             TodoItem tdItem3 = new TodoItem("td3");
             TodoItem tdItem4 = new TodoItem("td4");
 
-            IGenericList < TodoItem > todoItemList = new GenericList<TodoItem>
+            GenericList < TodoItem > todoItemList = new GenericList<TodoItem>
             {
                 tdItem1,
                 tdItem2,
@@ -127,11 +127,9 @@ namespace Task2.Tests
                 tdItem4
             };
 
-            int size = todoItemList.Count;
-
             TodoRepository tdr = new TodoRepository(todoItemList);
 
-            Assert.AreEqual(size, tdr.GetAll().Count);
+            CollectionAssert.AreEqual(todoItemList.ToList(), tdr.GetAll());
 
         }
 
@@ -186,7 +184,26 @@ namespace Task2.Tests
         [TestMethod()]
         public void GetFilteredTest()
         {
-            Assert.Fail();
+            TodoItem tdItem1 = new TodoItem("td");
+            TodoItem tdItem2 = new TodoItem("td");
+            TodoItem tdItem3 = new TodoItem("tdi");
+            TodoItem tdItem4 = new TodoItem("tdi");
+
+            TodoRepository tdr = new TodoRepository(new GenericList<TodoItem>
+            {
+                tdItem1,
+                tdItem2,
+                tdItem3,
+                tdItem4
+            });
+
+            List<TodoItem> before = new List<TodoItem>();
+            before.Add(tdItem1);
+            before.Add(tdItem2);
+
+            var todoItems = tdr.GetFiltered(stud => stud.Text.Equals("td"));
+
+            CollectionAssert.AreEqual(before, todoItems);
         }
     }
 }
