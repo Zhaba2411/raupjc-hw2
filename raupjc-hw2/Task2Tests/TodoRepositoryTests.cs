@@ -82,23 +82,17 @@ namespace Task2.Tests
         [TestMethod()]
         public void UpdateTest()
         {
-            TodoItem tdItem1 = new TodoItem("td1");
-            TodoItem tdItem2 = new TodoItem("td2");
-            TodoItem tdItem3 = new TodoItem("td3");
-            TodoItem tdItem4 = new TodoItem("td4");
+            TodoItem tdItem = new TodoItem("TodoItem");
+            
 
             TodoRepository tdr = new TodoRepository(new GenericList<TodoItem>
             {
-                tdItem1,
-                tdItem2,
-                tdItem3,
-                tdItem4
+                tdItem
             });
 
-            var before = tdr.GetAll()[0].Text;
-            tdr.Update(new TodoItem("td1-updated"));
-            Assert.AreNotEqual(before, tdr.GetAll()[0].Text);
-
+            string before = tdr.GetAll()[0].Text;
+            TodoItem tdItemUpdated  = tdr.Update(tdItem);
+            Assert.AreEqual(before, tdr.GetAll()[0].Text);
         }
 
         [TestMethod()]

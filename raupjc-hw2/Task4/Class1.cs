@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Task1;
@@ -41,7 +43,12 @@ namespace Task4
         }
         public static Student[] Linq2_5(University[] universityArray)
         {
-            throw new NotImplementedException();
+            return (from uni in universityArray
+                    from stud in uni.Students
+                    group stud by stud)
+                    .Where(group => group.Count() > 1)
+                    .Select(group => group.Key)
+                    .ToArray();
         }
     }
 
