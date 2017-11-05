@@ -132,9 +132,11 @@ namespace Task2.Tests
                 tdItem4
             };
 
+            int size = todoItemList.Count;
+
             TodoRepository tdr = new TodoRepository(todoItemList);
 
-            Assert.AreEqual(tdr.GetAll(), todoItemList);
+            Assert.AreEqual(size, tdr.GetAll().Count);
 
         }
 
