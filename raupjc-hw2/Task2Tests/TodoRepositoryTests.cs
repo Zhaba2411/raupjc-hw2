@@ -84,15 +84,16 @@ namespace Task2.Tests
         {
             TodoItem tdItem = new TodoItem("TodoItem");
             
-
             TodoRepository tdr = new TodoRepository(new GenericList<TodoItem>
             {
                 tdItem
             });
 
+            TodoItem td = new TodoItem("TodoItemUpdated");
+            td.Id = tdItem.Id;
+
             string before = tdr.GetAll()[0].Text;
-            TodoItem tdItemUpdated  = tdr.Update(tdItem);
-            Assert.AreEqual(before, tdr.GetAll()[0].Text);
+            Assert.AreNotEqual(before, tdr.Update(td));
         }
 
         [TestMethod()]
