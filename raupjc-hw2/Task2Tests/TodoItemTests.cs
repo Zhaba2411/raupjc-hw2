@@ -14,19 +14,12 @@ namespace Task2.Tests
         [TestMethod()]
         public void TodoItemTest()
         {
-            Assert.Fail();
-        }
+            TodoItem tdItem = new TodoItem("TODOITEM");
 
-        [TestMethod()]
-        public void EqualsTest()
-        {
-            Assert.Fail();
-        }
+            Assert.AreEqual(tdItem.IsCompleted, false);
+            tdItem.DateCompleted = DateTime.Now;
+            Assert.AreEqual(tdItem.IsCompleted, true);
 
-        [TestMethod()]
-        public void GetHashCodeTest()
-        {
-            Assert.Fail();
         }
     }
 }

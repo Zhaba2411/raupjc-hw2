@@ -12,57 +12,178 @@ namespace Task2.Tests
     public class TodoRepositoryTests
     {
         [TestMethod()]
-        public void TodoRepositoryTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
         public void GetTest()
         {
-            Assert.Fail();
+            TodoItem tdItem1 = new TodoItem("td1");
+            TodoItem tdItem2 = new TodoItem("td2");
+            TodoItem tdItem3 = new TodoItem("td3");
+            TodoItem tdItem4 = new TodoItem("td4");
+
+            TodoRepository tdr = new TodoRepository(new GenericList<TodoItem>
+            {
+                tdItem1,
+                tdItem2,
+                tdItem3,
+                tdItem4
+            });
+
+            Guid id = tdr.GetAll()[0].Id;
+
+            Assert.AreEqual(tdItem1, tdr.Get(id));
+
         }
 
         [TestMethod()]
         public void AddTest()
         {
-            Assert.Fail();
+            TodoItem tdItem1 = new TodoItem("td1");
+            TodoItem tdItem2 = new TodoItem("td2");
+            TodoItem tdItem3 = new TodoItem("td3");
+            TodoItem tdItem4 = new TodoItem("td4");
+
+            TodoRepository tdr = new TodoRepository(new GenericList<TodoItem>
+            {
+                tdItem1,
+                tdItem2,
+                tdItem3,
+                tdItem4
+            });
+
+            int sizeBefore = tdr.GetAll().Count;
+
+            tdr.Add(new TodoItem("td5"));
+            
+            Assert.AreEqual(sizeBefore + 1, tdr.GetAll().Count); 
         }
 
         [TestMethod()]
         public void RemoveTest()
         {
-            Assert.Fail();
+            TodoItem tdItem1 = new TodoItem("td1");
+            TodoItem tdItem2 = new TodoItem("td2");
+            TodoItem tdItem3 = new TodoItem("td3");
+            TodoItem tdItem4 = new TodoItem("td4");
+
+            TodoRepository tdr = new TodoRepository(new GenericList<TodoItem>
+            {
+                tdItem1,
+                tdItem2,
+                tdItem3,
+                tdItem4
+            });
+
+            int sizeBefore = tdr.GetAll().Count;
+
+            tdr.Remove(tdr.GetAll()[0].Id);
+
+            Assert.AreEqual(sizeBefore - 1, tdr.GetAll().Count);
         }
 
         [TestMethod()]
         public void UpdateTest()
         {
-            Assert.Fail();
+            TodoItem tdItem1 = new TodoItem("td1");
+            TodoItem tdItem2 = new TodoItem("td2");
+            TodoItem tdItem3 = new TodoItem("td3");
+            TodoItem tdItem4 = new TodoItem("td4");
+
+            TodoRepository tdr = new TodoRepository(new GenericList<TodoItem>
+            {
+                tdItem1,
+                tdItem2,
+                tdItem3,
+                tdItem4
+            });
+
+            var before = tdr.GetAll()[0].Text;
+            tdr.Update(new TodoItem("td1-updated"));
+            Assert.AreNotEqual(before, tdr.GetAll()[0].Text);
+
         }
 
         [TestMethod()]
         public void MarkAsCompletedTest()
         {
-            Assert.Fail();
+            TodoItem tdItem = new TodoItem("TodoItem");
+
+            TodoRepository tdr = new TodoRepository(new GenericList<TodoItem>
+            {
+                tdItem
+            });
+
+            bool before = tdItem.IsCompleted;
+            bool after = tdr.MarkAsCompleted(tdItem.Id);
+            Assert.AreNotEqual(before, after);
         }
 
         [TestMethod()]
         public void GetAllTest()
         {
-            Assert.Fail();
+            TodoItem tdItem1 = new TodoItem("td1");
+            TodoItem tdItem2 = new TodoItem("td2");
+            TodoItem tdItem3 = new TodoItem("td3");
+            TodoItem tdItem4 = new TodoItem("td4");
+
+            IGenericList < TodoItem > todoItemList = new GenericList<TodoItem>
+            {
+                tdItem1,
+                tdItem2,
+                tdItem3,
+                tdItem4
+            };
+
+            TodoRepository tdr = new TodoRepository(todoItemList);
+
+            Assert.AreEqual(tdr.GetAll(), todoItemList);
+
         }
 
         [TestMethod()]
         public void GetActiveTest()
         {
-            Assert.Fail();
+            TodoItem tdItem1 = new TodoItem("td1");
+            TodoItem tdItem2 = new TodoItem("td2");
+            TodoItem tdItem3 = new TodoItem("td3");
+            TodoItem tdItem4 = new TodoItem("td4");
+
+            TodoRepository tdr = new TodoRepository(new GenericList<TodoItem>
+            {
+                tdItem1,
+                tdItem2,
+                tdItem3,
+                tdItem4
+            });
+
+            int before = tdr.GetAll().Count;
+
+            tdr.MarkAsCompleted(tdr.GetAll()[0].Id);
+
+            Assert.AreEqual(before - 1, tdr.GetActive().Count) ;
+
         }
 
         [TestMethod()]
         public void GetCompletedTest()
         {
-            Assert.Fail();
+            TodoItem tdItem1 = new TodoItem("td1");
+            TodoItem tdItem2 = new TodoItem("td2");
+            TodoItem tdItem3 = new TodoItem("td3");
+            TodoItem tdItem4 = new TodoItem("td4");
+
+            TodoRepository tdr = new TodoRepository(new GenericList<TodoItem>
+            {
+                tdItem1,
+                tdItem2,
+                tdItem3,
+                tdItem4
+            });
+
+            int before = tdr.GetAll().Count;
+
+            tdr.MarkAsCompleted(tdr.GetAll()[0].Id);
+            tdr.MarkAsCompleted(tdr.GetAll()[1].Id);
+
+            Assert.AreEqual(2, tdr.GetCompleted().Count);
         }
 
         [TestMethod()]
